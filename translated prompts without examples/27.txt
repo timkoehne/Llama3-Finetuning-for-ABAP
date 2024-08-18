@@ -1,4 +1,0 @@
-
-
-def flip_case(string: str) -> str:
-    """Für einen gegebenen String, wandle Kleinbuchstaben in Großbuchstaben um und Großbuchstaben in Kleinbuchstaben."""

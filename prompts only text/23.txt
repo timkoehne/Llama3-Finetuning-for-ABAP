@@ -1,1 +1,0 @@
-Return length of given string
