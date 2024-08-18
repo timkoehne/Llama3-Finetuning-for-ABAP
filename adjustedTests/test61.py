@@ -3,6 +3,10 @@
 METADATA = {}
 
 
+
+def num_tests():
+    return 12
+
 def check(candidate):
     passed = 0
     failed = 0

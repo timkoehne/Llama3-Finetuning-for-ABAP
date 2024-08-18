@@ -2,6 +2,11 @@
 
 METADATA = {}
 
+
+
+def num_tests():
+    return 1
+
 def encode_cyclic(s: str):
     """
     returns encoded string by cycling groups of three characters.

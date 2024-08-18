@@ -1,3 +1,7 @@
+
+def num_tests():
+    return 14
+
 def check(candidate):
     passed = 0
     failed = 0

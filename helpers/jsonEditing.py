@@ -1,5 +1,40 @@
 import json
 
+def printProgress(loadfilename: str):
+    with open(loadfilename) as file:
+        prompts = json.loads(file.read())
+
+    for systemPromptIndex, systemPrompt in enumerate(prompts):
+        for tempIndex, temperature in enumerate(prompts[systemPrompt]):
+            for promptOptionIndex, promptOption in enumerate(prompts[systemPrompt][temperature]):
+                    for promptNumber in range(0, 164):
+                        promptNumber = str(promptNumber)
+                        if promptNumber in prompts[systemPrompt][temperature][promptOption]:
+                    # for promptNumber in prompts[systemPrompt][temperature][promptOption]:
+                            if "attempts" in prompts[systemPrompt][temperature][promptOption][promptNumber]:
+                                print(f"Prompt {promptNumber} has {len(prompts[systemPrompt][temperature][promptOption][promptNumber]["attempts"])}")
+                            else:
+                                print(f"Prompt {promptNumber} has 0")
+                        else:
+                            print(f"Prompt {promptNumber} has 0")
+                    # for attemptNr, attempt in enumerate(prompts[systemPrompt][temperature][promptOption][promptNumber]["attempts"]):
+
+def removeExcess(loadfilename: str, savefilename: str):
+    with open(loadfilename) as file:
+        prompts = json.loads(file.read())
+
+    for systemPromptIndex, systemPrompt in enumerate(prompts):
+        for tempIndex, temperature in enumerate(prompts[systemPrompt]):
+            for promptOptionIndex, promptOption in enumerate(prompts[systemPrompt][temperature]):
+                    for promptNumber in prompts[systemPrompt][temperature][promptOption]:
+                            if "attempts" in prompts[systemPrompt][temperature][promptOption][promptNumber]:
+                                if len(prompts[systemPrompt][temperature][promptOption][promptNumber]["attempts"]) > 100:
+                                    print(f"PromptNr {promptNumber} had too many attempts and was reduced")
+                                    prompts[systemPrompt][temperature][promptOption][promptNumber]["attempts"] = prompts[systemPrompt][temperature][promptOption][promptNumber]["attempts"][:100]
+
+    with open(savefilename, "w") as file:
+        file.write(json.dumps(prompts, indent=4))
+
 def removeRunDetails(filename: str):
     with open(filename) as file:
         prompts = json.loads(file.read())

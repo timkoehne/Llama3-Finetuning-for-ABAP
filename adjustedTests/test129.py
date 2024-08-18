@@ -1,9 +1,12 @@
+
+def num_tests():
+    return 11
+
 def check(candidate):
     passed = 0
     failed = 0
 
     # Check some simple cases
-    print
     try:
         assert candidate([[1, 2, 3], [4, 5, 6], [7, 8, 9]], 3) == [1, 2, 1]
         passed += 1

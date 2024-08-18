@@ -1,3 +1,7 @@
+
+def num_tests():
+    return 5
+
 def check(candidate):
     passed = 0
     failed = 0
@@ -14,7 +18,11 @@ def check(candidate):
     except (AssertionError, TypeError):
         failed += 1
     try:
-        assert candidate(['271', '137', '314']) == ['the number of odd elements 2n the str2ng 2 of the 2nput.','the number of odd elements 3n the str3ng 3 of the 3nput.','the number of odd elements 2n the str2ng 2 of the 2nput.']
+        assert candidate(['271', '137', '314']) == [
+        'the number of odd elements 2n the str2ng 2 of the 2nput.',
+        'the number of odd elements 3n the str3ng 3 of the 3nput.',
+        'the number of odd elements 2n the str2ng 2 of the 2nput.'
+    ]
         passed += 1
     except (AssertionError, TypeError):
         failed += 1

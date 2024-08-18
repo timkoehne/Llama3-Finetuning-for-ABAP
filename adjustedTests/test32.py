@@ -3,7 +3,6 @@
 METADATA = {}
 
 
-
 def poly(xs: list, x: float):
     """
     Evaluates polynomial with coefficients xs at point x.
@@ -12,6 +11,9 @@ def poly(xs: list, x: float):
     import math
     return sum([coeff * math.pow(x, i) for i, coeff in enumerate(xs)])
 
+
+def num_tests():
+    return 1
 
 def check(candidate):
     passed = 0
