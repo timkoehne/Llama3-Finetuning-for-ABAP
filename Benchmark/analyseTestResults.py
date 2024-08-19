@@ -7,15 +7,18 @@ def analysePrompts(loadfilename):
         prompts = json.loads(file.read())
 
     numFunctionsCreated = 0
+    numFunctionsCreatedWithRenaming = 0
     numUnitTestsPassed = 0
     numUnitTests = 0
     numSuccessful = 0
     numTests = 0
     numAttempts = 0
     numInterfaceSuccess = 0
+    numRenamed = 0
     statusList = {}
     exceptionsList = {}
     successfulList = []
+
     
     for systemPromptIndex, systemPrompt in enumerate(prompts):
         for tempIndex, temperature in enumerate(prompts[systemPrompt]):
@@ -31,6 +34,10 @@ def analysePrompts(loadfilename):
                         
                         numUnitTests+=attempt["tests"]
                         numUnitTestsPassed+=attempt["passed"]
+
+                        if "functionnameModified" in attempt:
+                            numRenamed += 1
+
                         for call in attempt["functionCalls"]:
                         
                             status = list(call.items())[0][0] if len(list(call.items())) > 0 else "empty return value"
@@ -58,14 +65,17 @@ def analysePrompts(loadfilename):
                         if attempt["tests"] == attempt["passed"]:
                             numSuccessful += 1
                             successfulList.append({"systemPrompt": systemPrompt, "temperature": temperature, "promptOption": promptOption, "promptNumber": promptNumber, "attemptNr": attemptNr})
-                        if attempt["functionCreated"] == "success":
+                        if attempt["functionCreated"] == "success" and not "functionnameModified" in attempt:
                             numFunctionsCreated+=1
+                        if attempt["functionCreated"] == "success":
+                            numFunctionsCreatedWithRenaming+=1
         
     print(str(numFunctionsCreated) + " out of " + str(numAttempts) + " functions were successfully created")
     print(str(numInterfaceSuccess) + " out of " + str(numAttempts) + " functions contained interfaces comments")
     print(str(numUnitTestsPassed) + " out of " + str(numUnitTests) + " unit-tests were successful")
     print(str(numSuccessful) + " out of " + str(numAttempts) + " tests were successful")
-    print(str(numAttempts - statusList["exception"] - numSuccessful) + " out of " + str(numAttempts) + "tests failed semantically")
+    print(str(numAttempts - statusList["exception"] - numSuccessful) + " out of " + str(numAttempts) + " tests failed semantically")
+    print(str(numFunctionsCreatedWithRenaming) + " functions created with renaming")
 
     print("-----Total Errors-----")
     for key, value in statusList.items():

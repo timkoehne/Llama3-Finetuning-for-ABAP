@@ -3,6 +3,7 @@ import glob
 import os
 import time
 import rfcMethod
+import analyseTestResults
 
 # #-----------big run------------
 systemPromptOptions = ["generate an abap function module. no explanations or examples."]
@@ -31,3 +32,7 @@ functiongroup = "ZRFCTEST23"
 # left_off_at_pos = rfcMethod.find_left_off_position(latest_file)
 # print(f"Last run stopped running at {left_off_at_pos}")
 # rfcMethod.runSavedFunctions(latest_file, f"results/{filename}-Processed.json", functiongroup, left_off_at_pos) #continue after crash
+
+
+# # analyse results
+# analyseTestResults.analysePrompts(f"results/{filename}-Processed.json")
